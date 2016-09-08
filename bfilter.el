@@ -3,7 +3,7 @@
 ;; Copyright ?
 
 ;; Author: github.com/gaak99
-;; Version: 0.3.0
+;; Version: 0.4.0
 
 ;;; Commentary:
 
