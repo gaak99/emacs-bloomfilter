@@ -40,7 +40,7 @@ Return the slot indexes set (can be ignored)."
 	  (aset bv i t))))
     vi))
 
-(defun bfilter-found? (input bv)
+(defun bfilter-isset? (input bv)
   "Given a string key, return t if all hashed slots eq t, else nil."
   (-let* ((vi (-map			; vector indexes/keys
 	      (lambda (f)
@@ -86,5 +86,5 @@ this does not have same results as C version."
 
 ;; (bfilter-set "zzzyy" bfilter-bv)
 ;; (bfilter-set "zzzyyXXXX" bfilter-bv)
-;; (bfilter-found? "zzzyy" bfilter-bv) --> t
-;; (bfilter-found? "zzzPOO" bfilter-bv) --> nil
+;; (bfilter-isset? "zzzyy" bfilter-bv) --> t
+;; (bfilter-isset? "zzzPOO" bfilter-bv) --> nil

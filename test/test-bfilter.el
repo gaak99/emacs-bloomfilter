@@ -23,7 +23,7 @@
 	  (foo (message "bftest debug: start bfilter-0: %s" dat))
 	  (bvt (make-bool-vector test-bfilter-bv-size nil))
 	  (setrt (bfilter-set dat bvt))
-	  (getrt (bfilter-found? dat bvt)))
+	  (getrt (bfilter-isset? dat bvt)))
     (if (not getrt) (message "test-bfilter-0 FAIL"))))
 
 (defun test-bfilter-1 ()
@@ -33,7 +33,7 @@
 	 (bvt (make-bool-vector test-bfilter-bv-size nil))
 	 (should-fail (-map
 		       (lambda (s) ; get no set
-			 (bfilter-found? s bvt))
+			 (bfilter-isset? s bvt))
 		       dat))
 	 (notFail (-filter ; (t/nil...)
 		   (lambda (x)
@@ -43,7 +43,7 @@
 		       (lambda (s)
 			 (progn
 			   (bfilter-set s bvt)
-			   (bfilter-found? s bvt)))
+			   (bfilter-isset? s bvt)))
 		       dat))
 	 (notSuccess (-filter ; (t/nil ...)
 		      (lambda (x)
