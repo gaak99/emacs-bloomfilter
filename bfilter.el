@@ -3,8 +3,8 @@
 ;; Copyright ?
 
 ;; Author: github.com/gaak99
-;; Version: 0.4.0
-;; Package-Version: 0.4.0
+;; Version: 0.4.1
+;; Package-Version: 0.4.1
 ;; Keywords: bloomfilter
 
 ;;; Commentary:
