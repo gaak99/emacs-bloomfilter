@@ -1,14 +1,16 @@
-;;; bfilter.el -- Bloom filter in elisp
+;;; bfilter.el --- Bloom filter in elisp
 
 ;; Copyright ?
 
 ;; Author: github.com/gaak99
 ;; Version: 0.4.0
+;; Package-Version: 0.4.0
+;; Keywords: bloomfilter
 
 ;;; Commentary:
 
 ;; A very basic bloom filter implementation in Elisp.
-;; NO WARRANTY. Not extensively tested.
+;; NO WARRANTY.  Not extensively tested.
 
 ;;; Code:
 
@@ -27,7 +29,7 @@
 ;;; Public API
 
 (defun bfilter-set (input bv)
-  "Given a string key input,  set the appro bloom filter bit vector slot.
+  "Given a string key INPUT,  set the appro bloom filter bit vector BV slot.
 Return the slot indexes set (can be ignored)."
   (-let ((vi (-map ; vector indexes
 	      (lambda (f)
@@ -41,7 +43,7 @@ Return the slot indexes set (can be ignored)."
     vi))
 
 (defun bfilter-isset? (input bv)
-  "Given a string key, return t if all hashed slots eq t, else nil."
+  "Given a string key INPUT, return t if all hashed slots in BV eq t, else nil."
   (-let* ((vi (-map			; vector indexes/keys
 	      (lambda (f)
 		(mod (funcall f input) (length bv)))
@@ -62,7 +64,10 @@ Return the slot indexes set (can be ignored)."
 ;;; Hashers (no elisp version avail so added here)
 
 (defun bfilter--jenkins-hash (input maxlen)
-  "Jenkins(ish) hash - based on (and direct port of) C version
+  "Jenkins(ish) hash - INPUT is string (of MAXLEN) to be
+hashed and returned.
+
+Based on (and direct port of) C version
 at https://en.wikipedia.org/wiki/Jenkins_hash_function
 Warning: due to elisp fixnum != C uint32_t
 this does not have same results as C version."
