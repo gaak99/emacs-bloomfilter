@@ -31,10 +31,9 @@
 (defun bfilter-set (input bv)
   "Given a string key INPUT,  set the appro bloom filter bit vector BV slot.
 Return the slot indexes set (can be ignored)."
-  (-let ((vi (-map ; vector indexes
-	      (lambda (f)
-		(mod (funcall f input) (length bv)))
-	      bfilter-hashers)))
+  (-let ((vi (-map (lambda (f); vector indexes
+		     (mod (funcall f input) (length bv)))
+		   bfilter-hashers)))
     (-each vi
       (lambda (i)
 	(progn
@@ -44,20 +43,20 @@ Return the slot indexes set (can be ignored)."
 
 (defun bfilter-isset? (input bv)
   "Given a string key INPUT, return t if all hashed slots in BV eq t, else nil."
-  (-let* ((vi (-map			; vector indexes/keys
-	      (lambda (f)
-		(mod (funcall f input) (length bv)))
-	      bfilter-hashers))
-	 (vv (-map			; vector values
-	      (lambda (i)
-		(aref bv i))
-	      vi))
-	 (any-fails (-filter	; (t/nil ...)
-		     (lambda (x)
-		       (not (and x)))
-		     vv)))
-    (if any-fails (message "debug get returns nil"))
-    (if any-fails nil t)))		; 1+ nil --> nil
+  (-let* ((vi (-map (lambda (f);  vector indices
+		      (mod (funcall f input) (length bv)))
+		    bfilter-hashers))
+	  (vv (-map (lambda (i);  vector values
+		      (aref bv i))
+		    vi))
+	 (any-nils? (lambda (l)
+		      (-let ((r (-filter (lambda (x)
+					   (not (and x)))
+					 l)))
+			(if r t nil)))))
+    (if (funcall any-nils? vv)
+	nil
+      t)))
 
 ;;; Private functions
 
