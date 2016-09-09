@@ -7,7 +7,7 @@
       '("LTBgjlDsR6" "2Js3OMjWw0" "eavUOuz7cn" "AOU7vNpMzT" "34sVSMHuFY" "VgqVATJZqm" "eFuflOQ3fz" "vGMWPfw9hW" "ywY9rfNvvx" "8KZJGaaL9y"))
 
 (defun test-hashers-3 (hfn l1 l2)
-"Quick sanity check on hash fn on range, collisions, etc."
+  "Quick sanity check on hash fn on range, collisions, etc."
   (-let* ((z1 (-zip-with (lambda (a b)
 			 (concat a "@" b)) l1 l2))
 	  (bv-size 1024)
