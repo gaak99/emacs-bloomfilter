@@ -42,12 +42,9 @@
 		  (isset (-map (lambda (s)
 				 (bfilter-isset? s bvt))
 			       z1))
-		  (any-nils? (lambda (l)
-			       (-let ((r (-filter (lambda (x)
-						    (not (and x)))
-						  l)))
-				 (if r t nil)))))
-	   (if (funcall any-nils? isset) nil t))))
+		  ;; use --find-indices so can display all nils found
+		  (any-nils? (--find-indices (equal nil it ) isset)))
+	   (if any-nils? nil t))))
 
 ;;; test-bfilter.el ends here
 
