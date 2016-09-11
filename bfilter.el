@@ -4,7 +4,7 @@
 
 ;; Author: github.com/gaak99
 ;; Version: 0.4.1
-;; Package-Version: 0.4.1
+;; Package-Version: 0.4.2
 ;; Keywords: bloomfilter
 
 ;;; Commentary:
@@ -42,21 +42,15 @@ Return the slot indexes set (can be ignored)."
     vi))
 
 (defun bfilter-isset? (input bv)
-  "Given a string key INPUT, return t if all hashed slots in BV eq t, else nil."
+  "Given key as INPUT, return t if all hashed slots in BV equal t, else nil."
   (-let* ((vi (-map (lambda (f);  vector indices
 		      (mod (funcall f input) (length bv)))
 		    bfilter-hashers))
 	  (vv (-map (lambda (i);  vector values
 		      (aref bv i))
 		    vi))
-	 (any-nils? (lambda (l)
-		      (-let ((r (-filter (lambda (x)
-					   (not (and x)))
-					 l)))
-			(if r t nil)))))
-    (if (funcall any-nils? vv)
-	nil
-      t)))
+	 (any-nils? (--find-indices (equal nil it ) vv)))
+    (if any-nils? nil t)))
 
 ;;; Private functions
 
