@@ -6,10 +6,9 @@ NO WARRANTY. Not extensively tested yet.
 # User Setable Options
 ```el
 (defvar bfilter-hashers '(sxhash; shipped w/emacs
-			          (lambda (in)
-				         (bfilter--jenkins-hash in (length in)))))
+			               (lambda (in)
+				              (bfilter--jenkins-hash in (length in)))))
 (defvar bfilter-bv-size 1024)
-(defvar bfilter-bv (make-bool-vector bfilter-bv-size nil))
 ```
 
 # Public API
