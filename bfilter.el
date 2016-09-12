@@ -42,7 +42,7 @@ Return the slot indexes set (can be ignored)."
     vi))
 
 (defun bfilter-isset? (input bv)
-  "Given key as INPUT, return t if all hashed slots in BV equal t, else nil."
+  "Given key as INPUT, return t if associated all hashed slots in BV equal t, else nil."
   (-let* ((vi (-map (lambda (f);  vector indices
 		      (mod (funcall f input) (length bv)))
 		    bfilter-hashers))
