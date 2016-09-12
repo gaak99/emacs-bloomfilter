@@ -20,7 +20,7 @@
 (setq bfilter-test-rand-strings-l2
       '("LTBgjlDsR6" "2Js3OMjWw0" "eavUOuz7cn" "AOU7vNpMzT" "34sVSMHuFY" "VgqVATJZqm" "eFuflOQ3fz" "vGMWPfw9hW" "ywY9rfNvvx" "8KZJGaaL9y"))
 
-(ert-deftest bfilter-test-basic ()
+(ert-deftest bfilter-test-basic-once ()
   (should (-let* ((dat "bob.dobbs@cheetahmagicinc.com")
 		  (foo (message "bftest debug: start bfilter-0: %s" dat))
 		  (bvt (make-bool-vector bfilter-test-bv-size nil))
@@ -28,13 +28,13 @@
 		  (getrt (bfilter-isset? dat bvt)))
 	    getrt)))
 
-(ert-deftest  bfilter-test-basicx10 ()
+(ert-deftest  bfilter-test-basic-many ()
   (should (-let* ((z1 (-zip-with (lambda (a b)
 				   (concat a "@" b))
 				 bfilter-test-rand-strings-l1
 				 bfilter-test-rand-strings-l2))
 		  (foo (message
-			"bftest debug: start bfilter-test-basic++: %s" (car z1)))
+			"bftest debug: start bfilter-test-basic-many: %s" (car z1)))
 		  (bvt (make-bool-vector bfilter-test-bv-size nil))
 		  (setrt (-each z1
 			   (lambda (s)
@@ -43,8 +43,30 @@
 				 (bfilter-isset? s bvt))
 			       z1))
 		  ;; use --find-indices so can display all nils found
-		  (any-nils? (--find-indices (equal nil it ) isset)))
-	   (if any-nils? nil t))))
+		  (any-nils? (--find-indices (equal nil it) isset)))
+	    (if any-nils? nil t))))
+
+(ert-deftest bfilter-test-noset-once ()
+  "No set before get so should fail modulo false positives."
+  (should (-let* ((dat "bob.dobbs@magiccheetahmagicinc.com")
+		  (foo (message "bftest debug: start bfilter-test-noset-once: %s" dat))
+		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (getrt (bfilter-isset? dat bvt)))
+	    (not getrt))))
+
+(ert-deftest  bfilter-test-noset-many ()
+  "No set before get so should fail modulo false positives."
+  (should (-let* ((z1 (-zip-with (lambda (a b)
+				   (concat a "@" b))
+				 bfilter-test-rand-strings-l1
+				 bfilter-test-rand-strings-l2))
+		  (foo (message
+			"bftest debug: start bfilter-test-basic-many: %s" (car z1)))
+		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (isset (-map (lambda (s)
+				 (bfilter-isset? s bvt))
+			       z1))
+		  (any-true? (--find-indices (equal t it) isset)))
+	    (if any-true? nil t))))
 
 ;;; test-bfilter.el ends here
-
