@@ -3,10 +3,19 @@
 A very basic bloom filter implementation in Elisp.
 NO WARRANTY. Not extensively tested yet.
 
-# Public api
+# User Setable Options
+```el
+(defvar bfilter-hashers '(sxhash; shipped w/emacs
+			          (lambda (in)
+				         (bfilter--jenkins-hash in (length in)))))
+(defvar bfilter-bv-size 1024)
+(defvar bfilter-bv (make-bool-vector bfilter-bv-size nil))
+```
+
+# Public API
 
 ```el
-;; "Given a string key INPUT, set the appro bloom filter bit vector BV slot.
+;; "Given a string key INPUT, set the appro bloom filter bit vector BV slots.
 ;; Return the slot indexes set (can be ignored)."
 (bfilter-set input-key bv)
 
