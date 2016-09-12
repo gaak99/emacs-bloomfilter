@@ -37,7 +37,7 @@ Return the slot indexes set (can be ignored)."
     (-each vi
       (lambda (i)
 	(progn
-	  (message "debug set: %s" i)
+	  ;;(message "debug set: %s" i)
 	  (aset bv i t))))
     vi))
 
