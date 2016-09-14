@@ -14,7 +14,7 @@ From wikipedia [^1]:
 > "definitely not in set".
 
 # User Setable Options
-Hash function fitness is discussed here [^2] and here [^3]:
+Hash function fitness and size of the filter are covered nicely here [^2]
 
 ```el
 ;; List of hash functions. See below [?] for refs to which
@@ -26,6 +26,12 @@ Hash function fitness is discussed here [^2] and here [^3]:
 ;; The bit vector data structure size.
 (defvar bfilter-bv-size 1024)
 ```
+
+## Note Jenkins hash function
+
+The included el implementation is not exactly the one in the C version
+on the wikipedia page -- see here[^3] for full details and how the Emacs
+25 dynamic module can be used to run the C one (if needbe).
 
 # Public API
 
@@ -45,6 +51,6 @@ The few tests can be run like so:
 CASK_EMACS=/usr/local/Cellar/emacs/25.0.94/bin/emacs cask emacs --batch   -l ert --script test/test-bfilter.el -f ert-run-tests-batch-and-exit
 ```
 
-[^1]: wiki url
-[^2]: fn?
-[^3]: fn?
+[^1]: wikipedia url
+[^2]: http://billmill.org/bloomfilter-tutorial/
+[^3]: https://gbxcx-labs.appspot.com/posts-dir/post-emacs25-ffi.html
