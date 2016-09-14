@@ -24,33 +24,34 @@
 			      (lambda (in)
 				(bfilter--jenkins-hash in (length in)))))
 (defvar bfilter-bv-size 1024)
+(defvar bfilter-size bfilter-bv-size)
 
 ;;; Public API
 
-(defun bfilter-init-bv ()
-  "Construct/return bf bit vector of size bfilter-bv-size."
-  (make-bool-vector bfilter-bv-size nil))
+(defun bfilter-init ()
+  "Construct/return of bloom filter structure (of size bfilter-size)."
+  (make-bool-vector bfilter-size nil))
 
-(defun bfilter-set (input bv)
-  "Given a string key INPUT, set the appro bloom filter bit vector BV slots.
+(defun bfilter-set (input bf)
+  "Given a string key INPUT, set the appro bloom filter bit vector BF slots.
 Return the slot indexes set (can be ignored)."
   (-let ((vi (-map (lambda (f); vector indexes
-		     (mod (funcall f input) (length bv)))
+		     (mod (funcall f input) (length bf)))
 		   bfilter-hashers)))
     (-each vi
       (lambda (i)
 	(progn
 	  ;;(message "debug set: %s" i)
-	  (aset bv i t))))
+	  (aset bf i t))))
     vi))
 
-(defun bfilter-isset? (input bv)
-  "Given key as INPUT, return t if associated all hashed slots in BV equal t, else nil."
+(defun bfilter-isset? (input bf)
+  "Given key as INPUT, return t if associated all hashed slots in BF equal t, else nil."
   (-let* ((vi (-map (lambda (f);  vector indices
-		      (mod (funcall f input) (length bv)))
+		      (mod (funcall f input) (length bf)))
 		    bfilter-hashers))
 	  (vv (-map (lambda (i);  vector values
-		      (aref bv i))
+		      (aref bf i))
 		    vi))
 	 (any-nils? (--find-indices (equal nil it ) vv)))
     (if any-nils? nil t)))
@@ -84,8 +85,3 @@ this does not have same results as C version."
 (provide 'bfilter)
 
 ;;; bfilter.el ends here
-
-;; (bfilter-set "zzzyy" bfilter-bv)
-;; (bfilter-set "zzzyyXXXX" bfilter-bv)
-;; (bfilter-isset? "zzzyy" bfilter-bv) --> t
-;; (bfilter-isset? "zzzPOO" bfilter-bv) --> nil

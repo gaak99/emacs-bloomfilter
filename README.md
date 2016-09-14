@@ -36,15 +36,15 @@ on the wikipedia page -- see here[^3] for full details and how the Emacs
 # Public API
 
 ```el
-;; Construct/return bf bit vector of size bfilter-bv-size.
-(bfilter-init-bv)
+;; Construct/return bloom filter of size bfilter-size.
+(bfilter-init)
 
-;; Given a string key INPUT, set the appro bloom filter bit vector BV slots.
+;; Given a string key INPUT, set the appro bloom filter bit vector BF slots.
 ;; Return the slot indexes set (can be ignored).
-(bfilter-set input-key bv)
+(bfilter-set input-key bf)
 
-;; Given key as INPUT, return t if all associated hashed slots in BV equal t, else nil.
-(bfilter-isset? input-key bv)
+;; Given key as INPUT, return t if all associated hashed slots in BF equal t, else nil.
+(bfilter-isset? input-key bf)
 ```
 
 # Tests
