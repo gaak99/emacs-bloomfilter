@@ -23,7 +23,7 @@
 (ert-deftest bfilter-test-basic-once ()
   (should (-let* ((dat "bob.dobbs@cheetahmagicinc.com")
 		  (foo (message "bftest debug: start bfilter-0: %s" dat))
-		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (bvt (bfilter-init-bv))
 		  (setrt (bfilter-set dat bvt))
 		  (getrt (bfilter-isset? dat bvt)))
 	    getrt)))
@@ -35,7 +35,7 @@
 				 bfilter-test-rand-strings-l2))
 		  (foo (message
 			"bftest debug: start bfilter-test-basic-many: %s" (car z1)))
-		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (bvt (bfilter-init-bv))
 		  (setrt (-each z1
 			   (lambda (s)
 			     (bfilter-set s bvt))))
@@ -50,7 +50,7 @@
   "No set before get so should fail modulo false positives."
   (should (-let* ((dat "bob.dobbs@magiccheetahmagicinc.com")
 		  (foo (message "bftest debug: start bfilter-test-noset-once: %s" dat))
-		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (bvt (bfilter-init-bv))
 		  (getrt (bfilter-isset? dat bvt)))
 	    (not getrt))))
 
@@ -62,7 +62,7 @@
 				 bfilter-test-rand-strings-l2))
 		  (foo (message
 			"bftest debug: start bfilter-test-basic-many: %s" (car z1)))
-		  (bvt (make-bool-vector bfilter-test-bv-size nil))
+		  (bvt (bfilter-init-bv))
 		  (isset (-map (lambda (s)
 				 (bfilter-isset? s bvt))
 			       z1))

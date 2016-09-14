@@ -3,8 +3,8 @@
 ;; Copyright ?
 
 ;; Author: github.com/gaak99
-;; Version: 0.4.1
-;; Package-Version: 0.4.2
+;; Version: 0.5.0
+;; Package-Version: ??
 ;; Keywords: bloomfilter
 
 ;;; Commentary:
@@ -24,12 +24,15 @@
 			      (lambda (in)
 				(bfilter--jenkins-hash in (length in)))))
 (defvar bfilter-bv-size 1024)
-(defvar bfilter-bv (make-bool-vector bfilter-bv-size nil))
 
 ;;; Public API
 
+(defun bfilter-init-bv ()
+  "Construct bf bit vector of size bfilter-bv-size."
+  (make-bool-vector bfilter-bv-size nil))
+
 (defun bfilter-set (input bv)
-  "Given a string key INPUT,  set the appro bloom filter bit vector BV slot.
+  "Given a string key INPUT, set the appro bloom filter bit vector BV slots.
 Return the slot indexes set (can be ignored)."
   (-let ((vi (-map (lambda (f); vector indexes
 		     (mod (funcall f input) (length bv)))
