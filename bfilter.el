@@ -28,7 +28,7 @@
 ;;; Public API
 
 (defun bfilter-init-bv ()
-  "Construct bf bit vector of size bfilter-bv-size."
+  "Construct/return bf bit vector of size bfilter-bv-size."
   (make-bool-vector bfilter-bv-size nil))
 
 (defun bfilter-set (input bv)

@@ -36,6 +36,9 @@ on the wikipedia page -- see here[^3] for full details and how the Emacs
 # Public API
 
 ```el
+;; Construct/return bf bit vector of size bfilter-bv-size.
+(bfilter-init-bv)
+
 ;; Given a string key INPUT, set the appro bloom filter bit vector BV slots.
 ;; Return the slot indexes set (can be ignored).
 (bfilter-set input-key bv)
