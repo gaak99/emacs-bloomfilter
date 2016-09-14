@@ -1,4 +1,4 @@
-;;; bfilter.el --- Bloom filter in elisp
+;;; bfilter.el --- basic Bloom filter in elisp
 
 ;; Copyright ?
 
@@ -33,7 +33,7 @@
   (make-bool-vector bfilter-size nil))
 
 (defun bfilter-set (input bf)
-  "Given a string key INPUT, set the appro bloom filter bit vector BF slots.
+  "Given a string key INPUT, set the appro bloom filter BF slots.
 Return the slot indexes set (can be ignored)."
   (-let ((vi (-map (lambda (f); vector indexes
 		     (mod (funcall f input) (length bf)))

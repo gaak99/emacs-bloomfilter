@@ -14,7 +14,7 @@ From wikipedia [^1]:
 > "definitely not in set".
 
 # User Setable Options
-Hash function fitness and size of the filter are covered nicely here [^2]
+Hash functions, number of hash functions, and size of the filter should be taken into consideration. [^2]
 
 ```el
 ;; List of hash functions. See below [?] for refs to which
@@ -29,9 +29,9 @@ Hash function fitness and size of the filter are covered nicely here [^2]
 
 ## Note Jenkins hash function
 
-The included el implementation is not exactly the one in the C version
-on the wikipedia page -- see here[^3] for full details and how the Emacs
-25 dynamic module can be used to run the C one (if needbe).
+The included el implementation results don't match the one in the C
+version on the wikipedia page (but is probably ok for non-production
+use) but Emacs 25 dynamic module feature may solve it.[^3]
 
 # Public API
 
