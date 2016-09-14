@@ -3,7 +3,7 @@
 ;; Copyright ?
 
 ;; Author: github.com/gaak99
-;; Version: 0.5.0
+;; Version: 0.6.0
 ;; Package-Version: ??
 ;; Keywords: bloomfilter
 
@@ -20,11 +20,10 @@
 
 ;;; User Setable Options
 
-(defvar bfilter-hashers '(sxhash; shipped w/emacs
-			      (lambda (in)
-				(bfilter--jenkins-hash in (length in)))))
-(defvar bfilter-bv-size 1024)
-(defvar bfilter-size bfilter-bv-size)
+(defvar bfilter-hashers '((lambda (in)
+			    (bfilter--jenkins-hash in (length in)))
+			  sxhash)); shipped w/emacs
+(defvar bfilter-size 1024)
 
 ;;; Public API
 
