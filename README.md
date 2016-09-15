@@ -13,10 +13,10 @@ From wikipedia [^1]:
 > "definitely not in set".
 
 ## Background
-I wrote it to practice Elisp and cement the notion of this filter in my fickle mind.
+I wrote it to practice Elisp and cement the notion of this filter in my overflowing lizard brain.
 
 ## Status
-The small test suite passes. But I've (or anybody else so far) not used this for real work yet.
+The small test suite passes. But I (or anybody else so far) haz not used this for a real app yet.
 
 # User Setable Options
 Hash functions, number of hash functions, and size of the filter should be taken into consideration. [^2]
@@ -33,13 +33,11 @@ Hash functions, number of hash functions, and size of the filter should be taken
 ```
 
 ## Note Jenkins hash function
-
 The included el implementation results don't match the one in the C
 version on the wikipedia page (but is probably ok for non-production
 use) but the Emacs 25 dynamic module feature can solve it.[^3]
 
 # Public API
-
 ```el
 ;; Construct/return bloom filter of size bfilter-size.
 (bfilter-init)
@@ -78,4 +76,5 @@ CASK_EMACS=/usr/local/Cellar/emacs/25.0.94/bin/emacs cask emacs --batch   -l ert
 # NO WARRANTY
 
 # LICENSE
- 
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
