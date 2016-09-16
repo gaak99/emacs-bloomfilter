@@ -16,7 +16,9 @@ From wikipedia [^1]:
 I wrote it to practice Elisp and cement the notion of this filter in my overflowing lizard brain.
 
 ## Status
-The small test suite passes. But I (or anybody else so far) haz not used this for a real app yet.
+The small test suite passes. But I (nor anybody else AFAIK) haz not used this for a real app yet.
+
+Needs more hash functions for real use. Only has 2 now, sxhash and one based on Jenkins hash.
 
 # User Setable Options
 Hash functions, number of hash functions, and size of the filter should be taken into consideration. [^2]
